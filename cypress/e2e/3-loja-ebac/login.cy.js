@@ -1,18 +1,50 @@
-/// <reference types="cypress"/>
+///<reference types="cypress"/>
 
-describe('Funcionalidade Login',() => {
+describe('Funcionalidade Login', () => {
 
-it('Deve fazer login com sucesso' , () => {
+    beforeEach(() => {
 
-    cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/')
-    cy.get('#username').type('marco.suelio@hotmail.com')
-    cy.get('#password').type('123456')
-    cy.get('#rememberme').click()
-    cy.get('.woocommerce-form > .button').click()
-    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain','Olá, marco.suelio (não é marco.suelio? Sair)')
+        cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/')
+
+    });
+
+    afterEach(() => {
+
+        cy.screenshot ()
+        
+    });
 
 
+    it('Deve fazer login com sucesso', () => {
 
-})
+        cy.get('#username').type('marco.suelio@hotmail.com')
+        cy.get('#password').type('123456')
+        cy.get('#rememberme').click()
+        cy.get('.woocommerce-form > .button').click()
+        cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, marco.suelio (não é marco.suelio? Sair)')
+
+    })
+
+    it('Deve exibir mensagem de erro ao inserir usuario inválido', () => {
+
+        cy.get('#username').type('errouser@hotmail.com')
+        cy.get('#password').type('123456')
+        cy.get('#rememberme').click()
+        cy.get('.woocommerce-form > .button').click()
+        cy.get('.woocommerce-error > li').should('contain', 'Endereço de e-mail desconhecido.')
+
+    });
+
+    it('Deve exibir mensagem de erro ao inserir senha inválida', () => {
+
+        cy.get('#username').type('marco.suelio@hotmail.com')
+        cy.get('#password').type('1234567')
+        cy.get('#rememberme').click()
+        cy.get('.woocommerce-form > .button').click()
+        cy.get('.woocommerce-error > li').should('contain', 'Erro: A senha fornecida para o e-mail marco.suelio@hotmail.com está incorreta.')
+
+    });
+
+
 
 })
