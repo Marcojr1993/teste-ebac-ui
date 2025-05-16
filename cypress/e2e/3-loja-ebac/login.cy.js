@@ -1,4 +1,4 @@
-///<reference types="cypress"/>
+/// <reference types="cypress"/>
 
 describe('Funcionalidade Login', () => {
 
@@ -11,7 +11,7 @@ describe('Funcionalidade Login', () => {
     afterEach(() => {
 
         cy.screenshot ()
-        
+
     });
 
 
