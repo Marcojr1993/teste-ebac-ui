@@ -56,7 +56,7 @@ describe('Funcionalidade Login', () => {
 
     });
 
-    it.only('Deve fazer login com sucesso - Usando massa Fixture', () => {
+    it('Deve fazer login com sucesso - Usando massa Fixture', () => {
 
         cy.fixture('perfil').then( dados => {
         cy.get('#username').type(dados.usuario , { log: false})
@@ -67,5 +67,11 @@ describe('Funcionalidade Login', () => {
 
          })
     })
+
+    it.only('Deve fazer login com sucesso - Usando Comandos personalisados ', () => {
+        cy.login ('marco.suelio@hotmail.com' , '123456')
+        cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, marco.suelio (não é marco.suelio? Sair)')
+
+    });
 
 })
